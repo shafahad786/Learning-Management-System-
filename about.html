@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - Learn&Grow</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    /* Additional styles for about page */
+    .about-header {
+      background: linear-gradient(135deg, #4a90e2 0%, #28a745 100%);
+      color: white;
+      padding: 5rem 0;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    
+    .about-header h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    
+    .about-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    
+    .mission-card, .story-card, .instructors-card, .approach-card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    .mission-card h2, .story-card h2, .instructors-card h2, .approach-card h2 {
+      color: #4a90e2;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid #f0f0f0;
+      padding-bottom: 0.5rem;
+    }
+    
+    /* User dropdown styles */
+    .user-dropdown {
+      position: relative;
+      display: none;
+    }
+    
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: #4a90e2;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    
+    .dropdown-menu {
+      position: absolute;
+      right: 0;
+      top: 100%;
+      background: white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-radius: 5px;
+      padding: 10px 0;
+      min-width: 200px;
+      z-index: 100;
+      display: none;
+    }
+    
+    .dropdown-menu a {
+      display: flex;
+      align-items: center;
+      padding: 8px 15px;
+      color: #333;
+      text-decoration: none;
+    }
+    
+    .dropdown-menu a:hover {
+      background-color: #f5f7fa;
+    }
+    
+    .dropdown-menu i {
+      width: 20px;
+      margin-right: 10px;
+      color: #4a90e2;
+    }
+    
+    .user-menu:hover .dropdown-menu {
+      display: block;
+    }
+    
+    #dashboard-nav {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container header-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-graduation-cap"></i>
+        Learn&Grow
+      </a>
+      
+      <button id="mobile-menu" class="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </button>
+      
+      <nav id="main-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li id="dashboard-nav"><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="about.html" class="active">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      
+      <div class="auth-buttons" id="authButtons">
+        <a href="login.html" class="btn btn-outline">Login</a>
+        <a href="signup.html" class="btn btn-primary">Sign Up</a>
+      </div>
+      
+      <div class="user-dropdown" id="userDropdown">
+        <div class="user-menu">
+          <div class="user-avatar" id="userAvatar">JD</div>
+          <ul class="dropdown-menu">
+            <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+            <li><a href="my-courses.html"><i class="fas fa-book-open"></i> My Courses</a></li>
+            <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
+            <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="about-header">
+    <div class="container">
+      <h1>About Learn&Grow</h1>
+      <p class="lead">Empowering learners worldwide with quality education</p>
+    </div>
+  </section>
+
+  <main class="about-section">
+    <div class="mission-card">
+      <h2>Our Mission</h2>
+      <p>At Learn&Grow, we believe that education should be accessible, affordable, and effective for everyone. Our mission is to democratize education by providing high-quality courses taught by industry experts at a fraction of the cost of traditional education.</p>
+    </div>
+    
+    <div class="story-card">
+      <h2>Our Story</h2>
+      <p>Founded in 2020 by a team of educators and technologists, Learn&Grow started as a small platform with just 5 courses. Today, we serve over 100,000 students worldwide with a catalog of 200+ courses across various disciplines.</p>
+    </div>
+    
+    <div class="instructors-card">
+      <h2>Our Instructors</h2>
+      <p>We work with the best instructors from top companies and universities. Each instructor goes through a rigorous selection process to ensure they can deliver engaging and effective learning experiences.</p>
+    </div>
+    
+    <div class="approach-card">
+      <h2>Our Approach</h2>
+      <p>We combine the best of online learning with interactive elements like quizzes, projects, and community support to create an engaging learning experience that delivers real results.</p>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container footer-container">
+      <div class="footer-section">
+        <h3>Learn&Grow</h3>
+        <p>We're on a mission to make quality education accessible and affordable for everyone.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Contact</h3>
+        <p><i class="fas fa-envelope"></i> support@learnandgrow.com</p>
+        <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+        <p><i class="fas fa-map-marker-alt"></i> 123 Learning St, San Francisco, CA</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2023 Learn&Grow. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Check authentication status on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+      const authButtons = document.getElementById('authButtons');
+      const userDropdown = document.getElementById('userDropdown');
+      const userAvatar = document.getElementById('userAvatar');
+      const dashboardNav = document.getElementById('dashboard-nav');
+
+      if (currentUser) {
+        // User is logged in
+        authButtons.style.display = 'none';
+        userDropdown.style.display = 'block';
+        dashboardNav.style.display = 'block';
+        
+        // Set user avatar initials
+        const initials = currentUser.name ? 
+          currentUser.name.split(' ').map(n => n[0]).join('') : 
+          currentUser.email.substring(0, 2).toUpperCase();
+        userAvatar.textContent = initials;
+      } else {
+        // User is not logged in
+        authButtons.style.display = 'flex';
+        userDropdown.style.display = 'none';
+        dashboardNav.style.display = 'none';
+      }
+
+      // Add logout functionality
+      document.getElementById('logoutBtn')?.addEventListener('click', function(e) {
+        e.preventDefault();
+        sessionStorage.removeItem('currentUser');
+        window.location.href = 'login.html?logout=true';
+      });
+    });
+  </script>
+</body>
+</html>

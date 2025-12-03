@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Course Content - Learn&Grow</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #4a90e2;
+      --secondary: #6c757d;
+      --light: #f8f9fa;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f7fa;
+    }
+    
+    .course-container {
+      display: flex;
+      min-height: 100vh;
+    }
+    
+    .sidebar {
+      width: 300px;
+      background: white;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+      padding: 20px;
+      overflow-y: auto;
+    }
+    
+    .course-title {
+      font-size: 20px;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .module {
+      margin-bottom: 15px;
+    }
+    
+    .module-title {
+      font-weight: 600;
+      padding: 8px 0;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .lessons {
+      padding-left: 15px;
+      display: none;
+    }
+    
+    .module.active .lessons {
+      display: block;
+    }
+    
+    .lesson {
+      padding: 8px 0;
+      cursor: pointer;
+      color: var(--secondary);
+    }
+    
+    .lesson.active {
+      color: var(--primary);
+      font-weight: 500;
+    }
+    
+    .lesson.completed::before {
+      content: "✓ ";
+      color: var(--primary);
+    }
+    
+    .content-area {
+      flex: 1;
+      padding: 30px;
+    }
+    
+    .video-container {
+      background: #000;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      height: 0;
+    }
+    
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    
+    .content-title {
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+    
+    .content-description {
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+    }
+    
+    .btn {
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      border: none;
+      font-weight: 500;
+    }
+    
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .btn-outline {
+      background: white;
+      border: 1px solid var(--primary);
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+  <div class="course-container">
+    <div class="sidebar" id="courseSidebar">
+      <div class="course-title" id="sidebarCourseTitle">Course Title</div>
+      <!-- Modules will be added here by JavaScript -->
+    </div>
+    
+    <div class="content-area">
+      <div class="video-container">
+        <iframe id="courseVideo" src="" allowfullscreen></iframe>
+      </div>
+      <h1 class="content-title" id="contentTitle">Lesson Title</h1>
+      <div class="content-description" id="contentDescription">
+        Lesson description will appear here.
+      </div>
+      <div class="nav-buttons">
+        <button class="btn btn-outline" id="prevLesson">Previous</button>
+        <button class="btn btn-primary" id="nextLesson">Next</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get course ID from URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const courseId = urlParams.get('id');
+      
+      // Sample course data - in a real app, this would come from an API
+      const courses = {
+        "dsa101": {
+          title: "Data Structures & Algorithms",
+          modules: [
+            {
+              title: "Introduction to DSA",
+              lessons: [
+                {
+                  title: "What are Data Structures?",
+                  videoId: "RBSGKlAvoiM", // YouTube video ID
+                  description: "Learn the fundamentals of data structures and why they're important."
+                },
+                {
+                  title: "Algorithm Basics",
+                  videoId: "8hly31xKli0",
+                  description: "Understanding what algorithms are and how to analyze them."
+                }
+              ]
+            },
+            {
+              title: "Arrays and Strings",
+              lessons: [
+                {
+                  title: "Array Fundamentals",
+                  videoId: "QJNwK2uJyGs",
+                  description: "Working with arrays in programming."
+                },
+                {
+                  title: "String Manipulation",
+                  videoId: "W7F5Qk8yluA",
+                  description: "Common string operations and algorithms."
+                }
+              ]
+            }
+          ]
+        },
+        "fsd101": {
+          title: "Full Stack Development",
+          modules: [
+            {
+              title: "HTML & CSS",
+              lessons: [
+                {
+                  title: "HTML Basics",
+                  videoId: "UB1O30fR-EE",
+                  description: "Learn the structure of HTML documents."
+                },
+                {
+                  title: "CSS Styling",
+                  videoId: "yfoY53QXEnI",
+                  description: "Make your web pages look great with CSS."
+                }
+              ]
+            }
+          ]
+        },
+        "ai101": {
+          title: "AI & Machine Learning",
+          modules: [
+            {
+              title: "Introduction to AI",
+              lessons: [
+                {
+                  title: "What is AI?",
+                  videoId: "ad79nYk2keg",
+                  description: "Understanding artificial intelligence."
+                }
+              ]
+            }
+          ]
+        }
+      };
+      
+      const course = courses[courseId];
+      if (!course) {
+        alert('Course not found');
+        window.location.href = 'courses.html';
+        return;
+      }
+      
+      // Set course title
+      document.getElementById('sidebarCourseTitle').textContent = course.title;
+      
+      // Build sidebar navigation
+      const sidebar = document.getElementById('courseSidebar');
+      let currentLesson = null;
+      
+      course.modules.forEach((module, moduleIndex) => {
+        const moduleEl = document.createElement('div');
+        moduleEl.className = 'module';
+        moduleEl.innerHTML = `
+          <div class="module-title">
+            <span>${module.title}</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="lessons"></div>
+        `;
+        
+        const lessonsEl = moduleEl.querySelector('.lessons');
+        module.lessons.forEach((lesson, lessonIndex) => {
+          const lessonEl = document.createElement('div');
+          lessonEl.className = 'lesson';
+          lessonEl.textContent = lesson.title;
+          lessonEl.dataset.moduleIndex = moduleIndex;
+          lessonEl.dataset.lessonIndex = lessonIndex;
+          
+          lessonEl.addEventListener('click', () => {
+            loadLesson(moduleIndex, lessonIndex);
+          });
+          
+          lessonsEl.appendChild(lessonEl);
+        });
+        
+        moduleEl.querySelector('.module-title').addEventListener('click', () => {
+          moduleEl.classList.toggle('active');
+          const icon = moduleEl.querySelector('.module-title i');
+          icon.className = moduleEl.classList.contains('active') ? 
+            'fas fa-chevron-up' : 'fas fa-chevron-down';
+        });
+        
+        sidebar.appendChild(moduleEl);
+        
+        // Open first module and load first lesson by default
+        if (moduleIndex === 0) {
+          moduleEl.classList.add('active');
+          if (!currentLesson && module.lessons.length > 0) {
+            currentLesson = { moduleIndex: 0, lessonIndex: 0 };
+            loadLesson(0, 0);
+          }
+        }
+      });
+      
+      // Navigation buttons
+      document.getElementById('prevLesson').addEventListener('click', () => {
+        if (!currentLesson) return;
+        
+        const { moduleIndex, lessonIndex } = currentLesson;
+        const module = course.modules[moduleIndex];
+        
+        if (lessonIndex > 0) {
+          // Previous lesson in same module
+          loadLesson(moduleIndex, lessonIndex - 1);
+        } else if (moduleIndex > 0) {
+          // Last lesson of previous module
+          const prevModule = course.modules[moduleIndex - 1];
+          loadLesson(moduleIndex - 1, prevModule.lessons.length - 1);
+        }
+      });
+      
+      document.getElementById('nextLesson').addEventListener('click', () => {
+        if (!currentLesson) return;
+        
+        const { moduleIndex, lessonIndex } = currentLesson;
+        const module = course.modules[moduleIndex];
+        
+        if (lessonIndex < module.lessons.length - 1) {
+          // Next lesson in same module
+          loadLesson(moduleIndex, lessonIndex + 1);
+        } else if (moduleIndex < course.modules.length - 1) {
+          // First lesson of next module
+          loadLesson(moduleIndex + 1, 0);
+        }
+      });
+      
+      function loadLesson(moduleIndex, lessonIndex) {
+        const module = course.modules[moduleIndex];
+        const lesson = module.lessons[lessonIndex];
+        
+        // Update current lesson
+        currentLesson = { moduleIndex, lessonIndex };
+        
+        // Update video
+        document.getElementById('courseVideo').src = 
+          `https://www.youtube.com/embed/${lesson.videoId}?autoplay=1`;
+        
+        // Update content
+        document.getElementById('contentTitle').textContent = lesson.title;
+        document.getElementById('contentDescription').textContent = lesson.description;
+        
+        // Update active lesson in sidebar
+        document.querySelectorAll('.lesson').forEach(el => {
+          el.classList.remove('active');
+        });
+        
+        const activeLesson = document.querySelector(
+          `.lesson[data-module-index="${moduleIndex}"][data-lesson-index="${lessonIndex}"]`
+        );
+        if (activeLesson) {
+          activeLesson.classList.add('active');
+          activeLesson.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        
+        // Mark as completed (in a real app, this would be saved to the backend)
+        activeLesson.classList.add('completed');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn&Grow - Modern Learning Platform</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    /* Additional styles for auth state */
+    .user-dropdown {
+      position: relative;
+      display: none;
+    }
+    
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: #4a90e2;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    
+    .dropdown-menu {
+      position: absolute;
+      right: 0;
+      top: 100%;
+      background: white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-radius: 5px;
+      padding: 10px 0;
+      min-width: 200px;
+      z-index: 100;
+      display: none;
+    }
+    
+    .dropdown-menu a {
+      display: flex;
+      align-items: center;
+      padding: 8px 15px;
+      color: #333;
+      text-decoration: none;
+    }
+    
+    .dropdown-menu a:hover {
+      background-color: #f5f7fa;
+    }
+    
+    .dropdown-menu i {
+      width: 20px;
+      margin-right: 10px;
+      color: #4a90e2;
+    }
+    
+    .user-menu:hover .dropdown-menu {
+      display: block;
+    }
+
+    #dashboard-nav {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container header-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-graduation-cap"></i>
+        Learn&Grow
+      </a>
+      
+      <button id="mobile-menu" class="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </button>
+      
+      <nav id="main-nav">
+        <ul>
+          <li><a href="index.html" class="active">Home</a></li>
+          <li id="dashboard-nav"><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      
+      <div class="auth-buttons" id="authButtons">
+        <a href="login.html" class="btn btn-outline">Login</a>
+        <a href="signup.html" class="btn btn-primary">Sign Up</a>
+      </div>
+      
+      <div class="user-dropdown" id="userDropdown">
+        <div class="user-menu">
+          <div class="user-avatar" id="userAvatar">JD</div>
+          <ul class="dropdown-menu">
+            <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+            <li><a href="my-courses.html"><i class="fas fa-book-open"></i> My Courses</a></li>
+            <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
+            <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-container">
+      <div class="hero-text">
+        <h1>Skills That Start Careers</h1>
+        <p>Focus on the skills and real-world experience that'll get you noticed. Explore interactive and flexible learning with us.</p>
+        <div class="hero-buttons">
+          <a href="courses.html" class="btn btn-primary">Explore Courses</a>
+          <a href="about.html" class="btn btn-outline">Learn More</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Students learning">
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="container">
+      <div class="section-title">
+        <h2>Why Choose Us?</h2>
+        <p>We provide the best learning experience with cutting-edge technology and industry experts</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-laptop-code"></i>
+          </div>
+          <h3>Interactive Learning</h3>
+          <p>Engage with coding exercises, quizzes, and projects that reinforce learning.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-chalkboard-teacher"></i>
+          </div>
+          <h3>Expert Instructors</h3>
+          <p>Learn from professionals with real-world experience in their fields.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-user-clock"></i>
+          </div>
+          <h3>Flexible Schedule</h3>
+          <p>Study at your own pace with 24/7 access to course materials.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="courses">
+    <div class="container">
+      <div class="section-title">
+        <h2>Popular Courses</h2>
+        <p>Start learning with our most popular courses</p>
+      </div>
+      <div class="course-grid">
+        <div class="course-card">
+          <div class="course-image" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
+          <div class="course-content">
+            <h3>Data Structures & Algorithms</h3>
+            <p>Master problem-solving with efficient algorithms and data handling techniques.</p>
+            <div class="course-meta">
+              <span><i class="far fa-clock"></i> 8 Weeks</span>
+              <span><i class="fas fa-signal"></i> Intermediate</span>
+            </div>
+            <a href="#" class="btn btn-primary enroll-btn" onclick="handleEnrollClick('dsa101')">Enroll Now</a>
+          </div>
+        </div>
+        <div class="course-card">
+          <div class="course-image" style="background-image: url('https://images.unsplash.com/photo-1639762681057-408e52192e55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80');"></div>
+          <div class="course-content">
+            <h3>Full Stack Development</h3>
+            <p>Build complete web applications using modern technologies.</p>
+            <div class="course-meta">
+              <span><i class="far fa-clock"></i> 12 Weeks</span>
+              <span><i class="fas fa-signal"></i> Beginner</span>
+            </div>
+            <a href="#" class="btn btn-primary enroll-btn" onclick="handleEnrollClick('fsd101')">Enroll Now</a>
+          </div>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: 3rem;">
+        <a href="courses.html" class="btn btn-outline">View All Courses</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-container">
+      <div class="footer-section">
+        <h3>Learn&Grow</h3>
+        <p>We're on a mission to make quality education accessible and affordable for everyone.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Contact</h3>
+        <p><i class="fas fa-envelope"></i> support@learnandgrow.com</p>
+        <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+        <p><i class="fas fa-map-marker-alt"></i> 123 Learning St, San Francisco, CA</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2023 Learn&Grow. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Check authentication status on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+      const authButtons = document.getElementById('authButtons');
+      const userDropdown = document.getElementById('userDropdown');
+      const userAvatar = document.getElementById('userAvatar');
+      const dashboardNav = document.getElementById('dashboard-nav');
+
+      if (currentUser) {
+        // User is logged in
+        authButtons.style.display = 'none';
+        userDropdown.style.display = 'block';
+        dashboardNav.style.display = 'block';
+        
+        // Set user avatar initials
+        const initials = currentUser.name ? 
+          currentUser.name.split(' ').map(n => n[0]).join('') : 
+          currentUser.email.substring(0, 2).toUpperCase();
+        userAvatar.textContent = initials;
+      } else {
+        // User is not logged in
+        authButtons.style.display = 'flex';
+        userDropdown.style.display = 'none';
+        dashboardNav.style.display = 'none';
+      }
+
+      // Add logout functionality
+      document.getElementById('logoutBtn')?.addEventListener('click', function(e) {
+        e.preventDefault();
+        sessionStorage.removeItem('currentUser');
+        window.location.href = 'login.html?logout=true';
+      });
+    });
+
+    function handleEnrollClick(courseId) {
+      const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+      
+      if (!currentUser) {
+        alert('Please login to enroll in courses');
+        window.location.href = 'login.html?return=' + encodeURIComponent(window.location.href);
+        return false;
+      }
+      
+      alert(`Enrolling in course ${courseId}`);
+      // In a real app, you would make an API call here to enroll the user
+      return false;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Courses</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Similar styling to dashboard but focused on courses */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .course-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .course-image {
+            height: 150px;
+            background-color: #eee;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .course-content {
+            padding: 20px;
+        }
+        
+        .course-title {
+            font-size: 18px;
+            margin: 0 0 10px;
+        }
+        
+        .course-instructor {
+            color: #6c757d;
+            font-size: 14px;
+            margin: 0 0 15px;
+        }
+        
+        .btn-enroll {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-enroll:hover {
+            background-color: #3a7bc8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Available Courses</h1>
+            <div id="userInfo"></div>
+        </div>
+        
+        <div class="courses-grid" id="availableCourses">
+            <!-- Courses will be inserted here by JavaScript -->
+        </div>
+    </div>
+    <script>
+        // Check if user is logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+            
+            if (!currentUser) {
+                window.location.href = 'login.html';
+                return;
+            }
+            // Display user info
+            document.getElementById('userInfo').innerHTML = `
+                <div style="display: flex; align-items: center;">
+                    <div style="width: 40px; height: 40px; border-radius: 50%; background-color: #4a90e2; 
+                        color: white; display: flex; align-items: center; justify-content: center; 
+                        margin-right: 10px; font-weight: bold;">
+                        ${getInitials(currentUser.fullname || 'L')}
+                    </div>
+                    <span>${currentUser.fullname || 'Learner'}</span>
+                </div>
+            `;
+            // Sample available courses
+            const courses = [
+                {
+                    id: 1,
+                    title: "Introduction to Web Development",
+                    instructor: "Sarah Johnson",
+                    description: "Learn the basics of HTML, CSS and JavaScript",
+                    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                },
+                {
+                    id: 2,
+                    title: "JavaScript Fundamentals",
+                    instructor: "Mike Chen",
+                    description: "Master the core concepts of JavaScript programming",
+                    image: "https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                },
+                {
+                    id: 3,
+                    title: "Advanced CSS Techniques",
+                    instructor: "Emma Davis",
+                    description: "Take your CSS skills to the next level",
+                    image: "https://images.unsplash.com/photo-1523437113738-bbd3cc89fb19?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                }
+            ];
+            // Display available courses
+            const coursesContainer = document.getElementById('availableCourses');
+            courses.forEach(course => {
+                coursesContainer.innerHTML += `
+                    <div class="course-card">
+                        <div class="course-image" style="background-image: url('${course.image}')"></div>
+                        <div class="course-content">
+                            <h3 class="course-title">${course.title}</h3>
+                            <p class="course-instructor">${course.instructor}</p>
+                            <p style="font-size: 14px; margin-bottom: 15px;">${course.description}</p>
+                            <button class="btn-enroll" onclick="enrollCourse(${course.id}, '${course.title}', '${course.instructor}')">Enroll Now</button>
+                        </div>
+                    </div>
+                `;
+            });
+        });
+        function getInitials(name) {
+            return name.split(' ').map(part => part[0]).join('').toUpperCase();
+        }
+        function enrollCourse(courseId, courseTitle, courseInstructor) {
+            const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+            
+            if (!currentUser) {
+                alert('Please log in first');
+                return;
+            }
+            
+            // Check if already enrolled
+            const alreadyEnrolled = currentUser.enrolledCourses.some(course => course.id === courseId);
+            if (alreadyEnrolled) {
+                alert('You are already enrolled in this course');
+                return;
+            }
+            
+            // Add new course enrollment
+            const newCourse = {
+                id: courseId,
+                title: courseTitle,
+                instructor: courseInstructor,
+                progress: 0,
+                image: "https://picsum.photos/seed/" + courseId + "/300/150.jpg"
+            };
+            
+            currentUser.enrolledCourses.push(newCourse);
+            sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            // Update localStorage for persistence
+            const userKey = 'user_' + currentUser.email;
+            const userData = JSON.parse(localStorage.getItem(userKey)) || {};
+            userData.enrolledCourses = currentUser.enrolledCourses;
+            localStorage.setItem(userKey, JSON.stringify(userData));
+            
+            // Update UI
+            alert(`Enrolled in course ${courseId}! Redirecting to dashboard...`);
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 1500);
+        }
+    </script>
+</body>
+</html>

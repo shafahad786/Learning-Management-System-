@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Learn&Grow</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4a90e2;
+            --primary-dark: #3a7bc8;
+            --secondary: #6c757d;
+            --success: #28a745;
+            --danger: #dc3545;
+            --light: #f8f9fa;
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-image: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+        }
+        
+        .auth-container {
+            max-width: 450px;
+            width: 100%;
+            margin: 20px;
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .auth-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--success));
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 10px;
+            color: var(--primary);
+            font-size: 24px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+        }
+        
+        .auth-container h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-weight: 600;
+            font-size: 28px;
+        }
+        
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            position: relative;
+        }
+        
+        .form-group label {
+            font-size: 14px;
+            color: #555;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+        
+        .form-group label i {
+            margin-right: 8px;
+            color: var(--secondary);
+            width: 20px;
+            text-align: center;
+        }
+        
+        .form-group input {
+            padding: 14px 15px 14px 40px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 15px;
+            transition: var(--transition);
+            background-color: #f8f9fa;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+            background-color: #fff;
+        }
+        
+        .input-icon {
+            position: absolute;
+            left: 12px;
+            top: 38px;
+            color: var(--secondary);
+        }
+        
+        .auth-button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .auth-button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .auth-button i {
+            margin-right: 8px;
+        }
+        
+        .auth-link {
+            text-align: center;
+            margin-top: 25px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .auth-link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .auth-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .error-message {
+            color: var(--danger);
+            font-size: 13px;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .error-message i {
+            margin-right: 5px;
+            font-size: 12px;
+        }
+        
+        .login-message {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 12px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .login-message.error {
+            color: var(--danger);
+            background-color: rgba(220, 53, 69, 0.1);
+        }
+        
+        .login-message.success {
+            color: var(--success);
+            background-color: rgba(40, 167, 69, 0.1);
+        }
+        
+        .login-message i {
+            margin-right: 8px;
+        }
+        
+        .forgot-password {
+            text-align: right;
+            margin-top: -15px;
+        }
+        
+        .forgot-password a {
+            color: var(--secondary);
+            font-size: 13px;
+            text-decoration: none;
+        }
+        
+        .forgot-password a:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 480px) {
+            .auth-container {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="logo">
+            <i class="fas fa-graduation-cap"></i>Learn&Grow
+        </div>
+        <h2>Welcome Back</h2>
+        
+        <!-- Check for logout parameter in URL -->
+        <div id="logoutMessage" class="login-message success" style="display: none;">
+            <i class="fas fa-check-circle"></i>
+            <span>You have been successfully logged out.</span>
+        </div>
+        
+        <div id="loginMessage" class="login-message error" style="display: none;"></div>
+        
+        <form id="loginForm" class="auth-form">
+            <div class="form-group">
+                <label for="email"><i class="fas fa-envelope"></i>Email</label>
+                <i class="fas fa-envelope input-icon"></i>
+                <input type="email" id="email" placeholder="Enter your email" required>
+                <div id="emailError" class="error-message"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="password"><i class="fas fa-lock"></i>Password</label>
+                <i class="fas fa-lock input-icon"></i>
+                <input type="password" id="password" placeholder="Enter your password" required>
+                <div id="passwordError" class="error-message"></div>
+            </div>
+            
+            <div class="forgot-password">
+                <a href="forgot-password.html">Forgot password?</a>
+            </div>
+            
+            <button type="submit" class="auth-button">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+        </form>
+        
+        <div class="auth-link">
+            Don't have an account? <a href="signup.html">Sign up here</a>
+        </div>
+    </div>
+    <script>
+        // Check for logout parameter in URL
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('logout')) {
+            const logoutMessage = document.getElementById('logoutMessage');
+            logoutMessage.style.display = 'flex';
+            
+            // Clear any existing login error messages
+            const loginMessage = document.getElementById('loginMessage');
+            loginMessage.style.display = 'none';
+            
+            // Remove the logout parameter from URL
+            const cleanUrl = window.location.href.split('?')[0];
+            window.history.replaceState({}, document.title, cleanUrl);
+        }
+        
+        // Check if user is already logged in
+        const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+        if (currentUser) {
+            // Redirect to home page
+            const returnUrl = new URLSearchParams(window.location.search).get('return') || 'index.html';
+            window.location.href = returnUrl;
+        }
+        
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Clear previous errors
+            document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+            const loginMessage = document.getElementById('loginMessage');
+            loginMessage.style.display = 'none';
+            
+            // Get form values
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            
+            // Validation
+            let isValid = true;
+            
+            if (!email) {
+                document.getElementById('emailError').innerHTML = '<i class="fas fa-exclamation-circle"></i> Email is required';
+                isValid = false;
+            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                document.getElementById('emailError').innerHTML = '<i class="fas fa-exclamation-circle"></i> Please enter a valid email';
+                isValid = false;
+            }
+            
+            if (!password) {
+                document.getElementById('passwordError').innerHTML = '<i class="fas fa-exclamation-circle"></i> Password is required';
+                isValid = false;
+            }
+            
+            if (isValid) {
+                // Check if user exists (from localStorage)
+                const userKey = 'user_' + email;
+                const userData = JSON.parse(localStorage.getItem(userKey));
+                
+                if (!userData) {
+                    showLoginMessage('No account found with this email', 'error');
+                    return;
+                }
+                
+                if (userData.password !== password) {
+                    showLoginMessage('Incorrect password', 'error');
+                    return;
+                }
+                
+                // Successful login
+                showLoginMessage('Login successful! Redirecting...', 'success');
+                
+                // Disable form inputs and button
+                const inputs = document.querySelectorAll('input, button');
+                inputs.forEach(input => {
+                    input.disabled = true;
+                    input.style.opacity = '0.7';
+                });
+                
+                // Store logged in user (session)
+                sessionStorage.setItem('currentUser', JSON.stringify({
+                    email: email,
+                    name: userData.name || email.split('@')[0],
+                    enrolledCourses: userData.enrolledCourses || [],
+                    certificates: userData.certificates || []
+                }));
+                
+                // Update localStorage for persistence
+                localStorage.setItem(userKey, JSON.stringify({
+                    ...userData,
+                    enrolledCourses: userData.enrolledCourses || [],
+                    certificates: userData.certificates || []
+                }));
+                
+                // Redirect to home page after 1 second
+                setTimeout(() => {
+                    const returnUrl = new URLSearchParams(window.location.search).get('return') || 'index.html';
+                    window.location.href = returnUrl;
+                }, 1000);
+            }
+        });
+        
+        function showLoginMessage(message, type) {
+            const loginMessage = document.getElementById('loginMessage');
+            loginMessage.innerHTML = `<i class="fas fa-${type === 'error' ? 'exclamation-circle' : 'check-circle'}"></i> ${message}`;
+            loginMessage.className = `login-message ${type}`;
+            loginMessage.style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
